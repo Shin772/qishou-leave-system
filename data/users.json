@@ -1,0 +1,68 @@
+[
+  {
+    "username": "admin",
+    "userId": "A001",
+    "name": "系统管理员",
+    "department": "管理部",
+    "password": "admin123",
+    "role": "admin",
+    "annualLeave": 15,
+    "usedAnnualLeave": 0,
+    "createTime": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "username": "zhangsan",
+    "userId": "R001",
+    "name": "张三",
+    "department": "配送部",
+    "password": "123456",
+    "role": "user",
+    "annualLeave": 15,
+    "usedAnnualLeave": 2,
+    "createTime": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "username": "lisi",
+    "userId": "R002",
+    "name": "李四",
+    "department": "配送部",
+    "password": "123456",
+    "role": "user",
+    "annualLeave": 15,
+    "usedAnnualLeave": 5,
+    "createTime": "2024-01-01T00:00:00-00:00Z"
+  },
+  {
+    "username": "wangwu",
+    "userId": "R003",
+    "name": "王五",
+    "department": "配送部",
+    "password": "123456",
+    "role": "user",
+    "annualLeave": 15,
+    "usedAnnualLeave": 1,
+    "createTime": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "username": "zhaoliu",
+    "userId": "R004",
+    "name": "赵六",
+    "department": "配送部",
+    "password": "123456",
+    "role": "user",
+    "annualLeave": 15,
+    "usedAnnualLeave": 3,
+    "createTime": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "username": "qianqi",
+    "userId": "R005",
+    "name": "钱七",
+    "department": "配送部",
+    "password": "123456",
+    "role": "user",
+    "annualLeave": 15,
+    "usedAnnualLeave": 0,
+    "createTime": "2024-01-01T00:00:00.000Z"
+  }
+]

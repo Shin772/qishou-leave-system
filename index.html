@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>骑手请假系统 - 用户首页</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100">
+    <!-- 顶部导航栏 -->
+    <nav class="bg-blue-600 text-white shadow-lg">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="flex justify-between items-center py-4">
+                <div class="flex items-center space-x-3">
+                    <img src="assets/logo.png" alt="Logo" class="w-8 h-8">
+                    <h1 class="text-xl font-bold">骑手请假系统</h1>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <span id="userName" class="font-medium">欢迎，用户</span>
+                    <button id="logoutBtn" class="bg-red-500 hover:bg-red-600 px-4 py-2 rounded-lg transition-colors">
+                        退出登录
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 主要内容区域 -->
+    <div class="max-w-6xl mx-auto px-4 py-8">
+        <!-- 请假申请面板 -->
+        <div class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <h2 class="text-2xl font-bold text-gray-800 mb-6">请假申请</h2>
+            <form id="leaveForm" class="space-y-4">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">请假类型</label>
+                        <select id="leaveType" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                            <option value="">请选择请假类型</option>
+                            <option value="病假">病假</option>
+                            <option value="事假">事假</option>
+                            <option value="年假">年假</option>
+                            <option value="调休">调休</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">请假天数</label>
+                        <input type="number" id="leaveDays" min="0.5" step="0.5" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="请输入请假天数" required>
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">开始日期</label>
+                    <input type="date" id="startDate" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">请假原因</label>
+                    <textarea id="leaveReason" rows="4" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="请详细描述请假原因..." required></textarea>
+                </div>
+                <div class="flex justify-end">
+                    <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg transition-colors">
+                        提交申请
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <!-- 请假记录 -->
+        <div class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <h2 class="text-2xl font-bold text-gray-800 mb-6">我的请假记录</h2>
+            <div id="leaveRecords" class="space-y-4">
+                <!-- 请假记录将通过JavaScript动态加载 -->
+            </div>
+        </div>
+
+        <!-- 个人中心 -->
+        <div class="bg-white rounded-lg shadow-md p-6">
+            <h2 class="text-2xl font-bold text-gray-800 mb-6">个人中心</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                    <h3 class="text-lg font-semibold text-gray-700 mb-4">基本信息</h3>
+                    <div class="space-y-3">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-600">姓名</label>
+                            <p id="userNameDisplay" class="text-gray-800 font-medium">-</p>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-600">工号</label>
+                            <p id="userIdDisplay" class="text-gray-800 font-medium">-</p>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-600">部门</label>
+                            <p id="userDeptDisplay" class="text-gray-800 font-medium">-</p>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold text-gray-700 mb-4">请假统计</h3>
+                    <div class="space-y-3">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-600">已用年假</label>
+                            <p id="usedAnnualLeave" class="text-gray-800 font-medium">-</p>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-600">剩余年假</label>
+                            <p id="remainingAnnualLeave" class="text-gray-800 font-medium">-</p>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-600">本月请假次数</label>
+                            <p id="monthlyLeaveCount" class="text-gray-800 font-medium">-</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 成功提示模态框 -->
+    <div id="successModal" class="fixed inset-0 bg-black bg-opacity-50 hidden flex items-center justify-center z-50">
+        <div class="bg-white rounded-lg p-6 max-w-sm mx-4">
+            <div class="text-center">
+                <div class="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-green-100 mb-4">
+                    <svg class="h-6 w-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                    </svg>
+                </div>
+                <h3 class="text-lg font-medium text-gray-900 mb-2">申请提交成功</h3>
+                <p class="text-sm text-gray-500 mb-4">您的请假申请已提交，请等待管理员审批。</p>
+                <button id="closeSuccessModal" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition-colors">
+                    确定
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/index.js"></script>
+</body>
+</html>
