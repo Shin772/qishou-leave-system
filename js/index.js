@@ -66,23 +66,11 @@ class UserHomeManager {
             closeSuccessModal.addEventListener('click', () => this.hideSuccessModal());
         }
 
-        // 日期交互功能
+        // 设置开始日期最小值为今天
         const startDateInput = document.getElementById('startDate');
-        const endDateInput = document.getElementById('endDate');
-        const leaveDaysInput = document.getElementById('leaveDays');
-        
         if (startDateInput) {
             const today = new Date().toISOString().split('T')[0];
             startDateInput.min = today;
-            startDateInput.addEventListener('change', () => this.handleDateChange());
-        }
-        
-        if (endDateInput) {
-            endDateInput.addEventListener('change', () => this.handleDateChange());
-        }
-        
-        if (leaveDaysInput) {
-            leaveDaysInput.addEventListener('input', () => this.handleDaysChange());
         }
     }
 
@@ -192,7 +180,6 @@ class UserHomeManager {
             leaveType: formData.get('leaveType') || document.getElementById('leaveType').value,
             leaveDays: parseFloat(formData.get('leaveDays') || document.getElementById('leaveDays').value),
             startDate: formData.get('startDate') || document.getElementById('startDate').value,
-            endDate: formData.get('endDate') || document.getElementById('endDate').value,
             leaveReason: formData.get('leaveReason') || document.getElementById('leaveReason').value
         };
 
@@ -253,25 +240,13 @@ class UserHomeManager {
             return false;
         }
         
-        if (!data.endDate) {
-            alert('请选择结束日期');
-            return false;
-        }
-        
-        // 验证日期有效性
-        const startDate = new Date(data.startDate);
-        const endDate = new Date(data.endDate);
-        if (endDate < startDate) {
-            alert('结束日期不能早于开始日期');
-            return false;
-        }
-        
         if (!data.leaveReason || data.leaveReason.trim().length < 10) {
             alert('请假原因至少需要10个字符');
             return false;
         }
         
         // 检查开始日期是否为今天或之后
+        const startDate = new Date(data.startDate);
         const today = new Date();
         today.setHours(0, 0, 0, 0);
         
@@ -349,70 +324,6 @@ class UserHomeManager {
         const modal = document.getElementById('successModal');
         if (modal) {
             modal.classList.add('hidden');
-        }
-    }
-
-    // 处理日期变化
-    handleDateChange() {
-        const startDateInput = document.getElementById('startDate');
-        const endDateInput = document.getElementById('endDate');
-        const leaveDaysInput = document.getElementById('leaveDays');
-        const dateInfoSpan = document.getElementById('dateInfo');
-        
-        if (!startDateInput || !endDateInput || !leaveDaysInput) return;
-        
-        const startDate = startDateInput.value;
-        const endDate = endDateInput.value;
-        
-        if (startDate && endDate) {
-            const start = new Date(startDate);
-            const end = new Date(endDate);
-            
-            // 验证日期有效性
-            if (end < start) {
-                endDateInput.value = '';
-                dateInfoSpan.textContent = '结束日期不能早于开始日期';
-                dateInfoSpan.className = 'text-sm text-red-600';
-                leaveDaysInput.value = '';
-                return;
-            }
-            
-            // 计算请假天数（包含开始和结束日期）
-            const timeDiff = end.getTime() - start.getTime();
-            const daysDiff = Math.ceil(timeDiff / (1000 * 3600 * 24)) + 1;
-            
-            leaveDaysInput.value = daysDiff;
-            dateInfoSpan.textContent = `请假时间：${this.formatDate(start)} 至 ${this.formatDate(end)}，共 ${daysDiff} 天`;
-            dateInfoSpan.className = 'text-sm text-green-600';
-            
-            // 设置结束日期最小值为开始日期
-            endDateInput.min = startDate;
-        } else {
-            dateInfoSpan.textContent = '请选择开始和结束日期，系统将自动计算请假天数';
-            dateInfoSpan.className = 'text-sm text-gray-600';
-        }
-    }
-    
-    // 处理请假天数变化
-    handleDaysChange() {
-        const startDateInput = document.getElementById('startDate');
-        const endDateInput = document.getElementById('endDate');
-        const leaveDaysInput = document.getElementById('leaveDays');
-        const dateInfoSpan = document.getElementById('dateInfo');
-        
-        if (!startDateInput || !endDateInput || !leaveDaysInput) return;
-        
-        const startDate = startDateInput.value;
-        const days = parseFloat(leaveDaysInput.value);
-        
-        if (startDate && days && days > 0) {
-            const start = new Date(startDate);
-            const end = new Date(start);
-            end.setDate(start.getDate() + days - 1);
-            
-            endDateInput.value = end.toISOString().split('T')[0];
-            dateInfoSpan.textContent = `请假时间：${this.formatDate(start)} 至 ${this.formatDate(end)}，共 ${days} 天`;
-            dateInfoSpan.className = 'text-sm text-green-600';
         }
     }
 
